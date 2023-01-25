@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Bands {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  music_genre String
+  responsible String  @unique
+  lama_shows  Shows[]
+
+  @@map("lama_bands")
+}
+
+model Shows {
+  id           String    @id @default(uuid())
+  week_day     String    @unique
+  start_time   Int
+  end_time     Int
+  band_id      String
+  band         Bands     @relation(fields: [band_id], references: [id])
+  lama_tickets Tickets[]
+  lama_photos  Photos[]
+
+  @@map("lama_shows")
+}
+
+model Users {
+  id                String        @id @default(uuid())
+  name              String
+  email             String
+  password          String
+  role              String        @default("NORMAL")
+  lama_sold_tickets SoldTickets[]
+  RefreshToken      RefreshToken?
+
+  @@map("lama_users")
+}
+
+model Tickets {
+  id                String        @id @default(uuid())
+  ticket_name       String        @unique
+  price             Float
+  total_quantity    Int
+  sold_quantity     Int           @default(0)
+  show_id           String
+  show              Shows         @relation(fields: [show_id], references: [id])
+  lama_sold_tickets SoldTickets[]
+
+  @@map("lama_tickets")
+}
+
+model SoldTickets {
+  id              String  @id @default(uuid())
+  ticket_quantity Int
+  name_ticket     String
+  user_id         String
+  ticket          Tickets @relation(fields: [name_ticket], references: [ticket_name])
+  user            Users   @relation(fields: [user_id], references: [id])
+
+  @@map("lama_sold_tickets")
+}
+
+model Photos {
+  id      String @id @default(uuid())
+  photo   String @unique
+  show_id String
+  show    Shows  @relation(fields: [show_id], references: [id])
+
+  @@map("lama_photos")
+}
+
+model RefreshToken {
+  id        String @id @default(uuid())
+  expiresIn Int
+  user      Users  @relation(fields: [userId], references: [id])
+  userId    String @unique
+
+  @@map("refresh_token")
+}
