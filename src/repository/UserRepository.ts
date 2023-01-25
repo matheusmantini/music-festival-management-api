@@ -17,6 +17,25 @@ export class UserRepository {
     }
   };
 
+  public findUserById = async (id: string): Promise<user | null> => {
+    try {
+      const user = await client.users.findFirst({ where: { id } });
+
+      if (!user) {
+        return null;
+      }
+
+      return {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      };
+    } catch (error: any) {
+      throw new Error(error.sqlMessage || error.message);
+    }
+  };
+
   public findUserByEmail = async (email: string): Promise<user | null> => {
     try {
       const user = await client.users.findFirst({ where: { email } });

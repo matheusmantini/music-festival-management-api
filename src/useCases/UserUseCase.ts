@@ -60,6 +60,23 @@ class UserUseCase {
     return { user: newCreatedUser, token };
   };
 
+  public findUserById = async (id: string) => {
+    if (!id) {
+      throw new BadRequestError(
+        "Invalid entries. The 'id' field is required."
+      );
+    }
+
+    const userAlreadyExists = await this.userRepository.findUserById(id);
+    if (!userAlreadyExists) {
+      throw new BadRequestError(
+        `User with id '${id}' is not registered in the system yet`
+      );
+    }
+
+    return userAlreadyExists;
+  };
+
   public findUserByEmail = async (email: string) => {
     if (!email) {
       throw new BadRequestError(
