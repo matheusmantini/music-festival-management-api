@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { NotFoundError } from "../errors/NotFoundError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
-import { client } from "../services/PrismaClient";
 
 export const ensureAuthenticated = async (
   request: Request,
@@ -17,21 +15,7 @@ export const ensureAuthenticated = async (
   const [, token] = authToken.split(" ");
 
   try {
-    const payload = verify(token, process.env.JWT_SECRET as string);
-
-    const user = await client.users.findFirst({
-      where: { id: payload.sub as string },
-    });
-
-    if (!user) {
-      throw new NotFoundError("User does not exists");
-    }
-
-    if (user.role.toUpperCase() !== "ADMIN") {
-      throw new UnauthorizedError(
-        `You don't have permission to access this content.`
-      );
-    }
+    verify(token, process.env.JWT_SECRET as string);
 
     return next();
   } catch (error: any) {

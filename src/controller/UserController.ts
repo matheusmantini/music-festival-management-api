@@ -18,13 +18,11 @@ export class UserController {
 
       const userCreated = await this.userUseCase.create(newUser);
 
-      res
-        .status(201)
-        .send({
-          message: "User successfully registered",
-          user: userCreated.user,
-          token: userCreated.token,
-        });
+      res.status(201).send({
+        message: "User successfully registered",
+        user: userCreated.user,
+        token: userCreated.token,
+      });
     } catch (error: any) {
       res.status(error.statusCode || 500).send({
         message: error.message,
@@ -34,11 +32,23 @@ export class UserController {
 
   public findUserByEmail = async (req: Request, res: Response) => {
     try {
-      const { email } = req.body;
+      const { email } = req.query;
 
-      const user = await this.userUseCase.findUserByEmail(email);
+      const user = await this.userUseCase.findUserByEmail(email as string);
 
       res.status(201).send(user);
+    } catch (error: any) {
+      res.status(error.statusCode || 500).send({
+        message: error.message,
+      });
+    }
+  };
+
+  public findAll = async (req: Request, res: Response) => {
+    try {
+      const users = await this.userUseCase.findAll();
+
+      res.status(201).send(users);
     } catch (error: any) {
       res.status(error.statusCode || 500).send({
         message: error.message,

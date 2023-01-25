@@ -62,9 +62,7 @@ class UserUseCase {
 
   public findUserById = async (id: string) => {
     if (!id) {
-      throw new BadRequestError(
-        "Invalid entries. The 'id' field is required."
-      );
+      throw new BadRequestError("Invalid entries. The 'id' field is required.");
     }
 
     const userAlreadyExists = await this.userRepository.findUserById(id);
@@ -96,6 +94,12 @@ class UserUseCase {
     }
 
     return userAlreadyExists;
+  };
+
+  public findAll = async () => {
+    const users = await this.userRepository.findAll();
+
+    return users;
   };
 }
 

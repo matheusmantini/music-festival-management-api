@@ -55,6 +55,29 @@ export class UserRepository {
     }
   };
 
+  public findAll = async (): Promise<user[] | null> => {
+    try {
+      const users = await client.users.findMany();
+
+      if (!users) {
+        return [];
+      }
+
+      const newUsers = users.map((user) => {
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        };
+      });
+
+      return newUsers;
+    } catch (error: any) {
+      throw new Error(error.sqlMessage || error.message);
+    }
+  };
+
   public getUserHashPasswordByEmail = async (email: string) => {
     try {
       const user = await client.users.findMany({ where: { email } });
