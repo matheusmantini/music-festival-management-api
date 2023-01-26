@@ -7,6 +7,7 @@ import { authRouter } from "./router/AuthRouter";
 import { bandRouter } from "./router/BandRouter";
 import { showRouter } from "./router/ShowRouter";
 import { ticketRouter } from "./router/TicketRouter";
+import { photoRouter } from "./router/PhotoRouter";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use("/auth", authRouter);
 app.use("/band", bandRouter);
 app.use("/show", showRouter);
 app.use("/ticket", ticketRouter);
+app.use("/photo", photoRouter)
 
 app.use(errorMiddleware);
 
