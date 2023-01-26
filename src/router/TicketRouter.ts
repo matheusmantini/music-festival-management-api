@@ -3,6 +3,8 @@ import { TicketUseCase } from "../useCases/TicketUseCase";
 import { TicketController } from "../controller/TicketController";
 import { ShowRepository } from "../repository/ShowRepository";
 import { TicketRepository } from "../repository/TicketRepository";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
+import { validateAdmin } from "../middlewares/validateAdmin";
 
 export const ticketRouter = express.Router();
 
@@ -13,5 +15,5 @@ const ticketBusiness = new TicketUseCase(
 
 const ticketController = new TicketController(ticketBusiness);
 
-ticketRouter.post("/", ticketController.create);
-ticketRouter.post("/purchase", ticketController.buy);
+ticketRouter.post("/", ensureAuthenticated, validateAdmin, ticketController.create);
+ticketRouter.post("/purchase", ensureAuthenticated, ticketController.buy);

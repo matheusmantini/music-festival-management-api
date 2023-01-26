@@ -3,6 +3,7 @@ import { PhotoController } from "../controller/PhotoController";
 import { PhotoUseCase } from "../useCases/PhotoUseCase";
 import { PhotoRepository } from "../repository/PhotoRepository";
 import { ShowRepository } from "../repository/ShowRepository";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
 export const photoRouter = express.Router();
 
@@ -13,5 +14,5 @@ const photoUseCase = new PhotoUseCase(
 
 const photoController = new PhotoController(photoUseCase);
 
-photoRouter.post("/", photoController.addPhoto);
-photoRouter.get("/:showId", photoController.getPhotosByShowId);
+photoRouter.post("/", ensureAuthenticated, photoController.addPhoto);
+photoRouter.get("/:showId", ensureAuthenticated, photoController.getPhotosByShowId);
