@@ -6,6 +6,7 @@ import { userRouter } from "./router/UserRouter";
 import { authRouter } from "./router/AuthRouter";
 import { bandRouter } from "./router/BandRouter";
 import { showRouter } from "./router/ShowRouter";
+import { ticketRouter } from "./router/TicketRouter";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use("/user", userRouter);
 app.use("/auth", authRouter);
 app.use("/band", bandRouter);
 app.use("/show", showRouter);
+app.use("/ticket", ticketRouter);
 
 app.use(errorMiddleware);
 

@@ -104,6 +104,7 @@ class ShowUseCase {
     for (const show of showsByDate) {
       const band = await this.bandRepository.getBandByNameOrId(show.band_id);
       showsWithBandDetails.push({
+        id: show.id,
         name: band?.name,
         genre: band?.music_genre,
         start_time: show.start_time,

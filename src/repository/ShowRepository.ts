@@ -17,6 +17,22 @@ class ShowRepository {
     }
   };
 
+  public getShowById = async (id: string) => {
+    try {
+      const show = await client.shows.findFirst({
+        where: { id },
+      });
+
+      if (!show) {
+        return [];
+      }
+
+      return show;
+    } catch (error: any) {
+      throw new Error(error.sqlMessage || error.message);
+    }
+  };
+
   public getShowsBySchedule = async (weekDay: string) => {
     try {
       const shows = await client.shows.findMany({
