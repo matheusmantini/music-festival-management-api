@@ -19,7 +19,7 @@ model Bands {
 
 model Shows {
   id           String    @id @default(uuid())
-  week_day     String    @unique
+  week_day     String    
   start_time   Int
   end_time     Int
   band_id      String

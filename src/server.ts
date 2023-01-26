@@ -5,6 +5,7 @@ import { errorMiddleware } from "./middlewares/errorHandler";
 import { userRouter } from "./router/UserRouter";
 import { authRouter } from "./router/AuthRouter";
 import { bandRouter } from "./router/BandRouter";
+import { showRouter } from "./router/ShowRouter";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/user", userRouter);
 app.use("/auth", authRouter);
 app.use("/band", bandRouter);
+app.use("/show", showRouter);
 
 app.use(errorMiddleware);
 
