@@ -10,6 +10,7 @@ import { userRoutes } from '../../modules/user/infra/http/routes/UserRouter';
 const AllRoutes = Router();
 
 AllRoutes.use('/auth', authRoutes);
+
 AllRoutes.use('/band', bandRoutes);
 AllRoutes.use('/photo', photoRoutes);
 AllRoutes.use('/show', showRoutes);

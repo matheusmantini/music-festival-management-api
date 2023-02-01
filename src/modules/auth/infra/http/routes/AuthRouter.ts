@@ -8,5 +8,6 @@ const authenticateController = new AuthController();
 
 const refreshTokenUserController = new RefreshTokenUserController();
 
+
 authRoutes.post("/login", authenticateController.handle);
 authRoutes.post("/refresh-token", refreshTokenUserController.handle);

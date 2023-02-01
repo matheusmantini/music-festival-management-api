@@ -34,8 +34,9 @@ class RefreshTokenUseCase {
 
       const generatedRefreshToken = new GenerateRefreshToken();
       const newRefreshToken = await generatedRefreshToken.execute(
-        refreshToken.id
+        refreshToken.userId
       );
+
       return { token, refreshToken: newRefreshToken };
     }
 

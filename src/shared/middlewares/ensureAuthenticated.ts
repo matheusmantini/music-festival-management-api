@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { UnauthorizedError } from "../shared/errors/UnauthorizedError";
+import { UnauthorizedError } from "../errors";
 
 export const ensureAuthenticated = async (
   request: Request,

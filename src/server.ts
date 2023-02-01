@@ -2,25 +2,15 @@ import "express-async-errors";
 import express from "express";
 import cors from "cors";
 import { errorMiddleware } from "./shared/middlewares/errorHandler";
-import {
-  authRouter,
-  bandRouter,
-  showRouter,
-  ticketRouter,
-  photoRouter,
-  userRouter,
-} from "./shared/routes";
+import AllRoutes from "./shared/routes/routes";
 
 const app = express();
 
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded());
 
-app.use("/v1/users", userRouter);
-app.use("/v1/auth", authRouter);
-app.use("/v1/bands", bandRouter);
-app.use("/v1/shows", showRouter);
-app.use("/v1/tickets", ticketRouter);
-app.use("/v1/photos", photoRouter);
+app.use(AllRoutes);
 
 app.use(errorMiddleware);
 

@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { NotFoundError } from "../shared/errors/NotFoundError";
-import { UnauthorizedError } from "../shared/errors/UnauthorizedError";
-import { client } from "../services/PrismaClient";
+import { NotFoundError, UnauthorizedError } from "../errors";
+import { client } from "../helpers";
 
 export const validateAdmin = async (
   request: Request,
