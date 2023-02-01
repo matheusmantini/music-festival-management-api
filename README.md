@@ -8,7 +8,7 @@
 ![REST](https://img.shields.io/badge/REST%20API-%231572B6.svg?style=for-the-badge)
 
 <p align="center">> Status do Projeto: Concluído :heavy_check_mark:</p>
-<p align="center"> Informações do Projeto: Utilização de POO e clean architecture</p>
+<p align="center">> Informações do Projeto: Utilização de POO e Clean Architecture</p>
     
 ## Funcionalidades
 
